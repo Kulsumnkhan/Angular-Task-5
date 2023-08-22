@@ -1,0 +1,106 @@
+<!-- <p>staff-dashboard works!</p> -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="staffInfo text-center mt-3">
+                <h2>{{currentUsers?.title}} {{currentUsers?.fName}} {{currentUsers?.lName}}</h2>
+                <span class="text-capitalize">{{currentUsers?.department}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="sub-content" *ngIf="!leaves?.length ;else elsePart">
+    <h2>Not applied any leaves yet.</h2>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staffModal">Apply
+        Now</button>
+</div>
+
+<ng-template #elsePart>
+    <div class="container py-5">
+        <div class="row text-center fw-bolder mt-5">
+            <div class="col-md-2 offset-md-2 col-sm-6">
+                <h3>{{totalLeaves}}</h3>
+                <p>Total Leaves</p>
+            </div>
+            <div class="col-md-2 col-sm-6 text-success ">
+                <h3>{{approvedLeaves}}</h3>
+                <p>Approved</p>
+            </div>
+            <div class="col-md-2 col-sm-6 text-danger ">
+                <h3>{{rejectedLeaves}}</h3>
+                <p>Rejected</p>
+            </div>
+            <div class="col-md-2 col-sm-6 text-warning ">
+                <h3>{{pendingLeaves}}</h3>
+                <p>Pending</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngFor="let list of leaves">
+                <div class="card card-container">
+                    <div class="card-body">
+                        <p>Leaves : <span class="text-secondary">{{list.startdt | date : "dd/MM/yyyy"}} to {{list.enddt
+                                | date : "dd/MM/yyyy"}}</span></p>
+                        <p>Number of Days : <span class="text-secondary">{{list.totalNoOfDays}}</span></p>
+                        <div class="reason">
+                            <p>Reason : <span class="text-secondary">{{list.reason}}</span></p>
+                        </div>
+                        <hr>
+                        <div *ngIf="list.status === 'pending';else elsePart">
+                            <p>Status : <span class="text-warning">{{list.status}}</span></p>
+                        </div>
+                        <ng-template #elsePart>
+                            <p>Status : <span
+                                    [ngClass]="list.status === 'Approved'?'text-success':'text-danger'">{{list.status}}</span>
+                            </p>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="position btn btn-primary position-absolute top-0 start-50 translate-middle-x"
+        data-bs-toggle="modal" data-bs-target="#staffModal">Apply Leave</button>
+</ng-template>
+
+<!-- Modal -->
+<div class="modal fade" id="staffModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Leave Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="leaveDetails" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="from">From</label>
+                            <input type="date" name="fromDate" id="from" class="form-control" formControlName="startdt">
+                        </div>
+                        <div class="col-6">
+                            <label for="to">To</label>
+                            <input type="date" name="toDate" id="to" class="form-control" formControlName="enddt">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="reason">Reason</label>
+                                <textarea name="reason" id="reason" class="form-control" rows="5"
+                                    formControlName="reason"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

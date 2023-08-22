@@ -1,0 +1,26 @@
+<!-- <p>header works!</p> -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <a class="navbar-brand ms-3">
+      <img src="../../assets/images/MyAman Logo 7..jpeg" alt="MyAmanLogo" title="MyAmanLogo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+      aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <span *ngIf="isNewUser" class="btn btn-outline-primary me-3">
+            <a class="text-white sign" routerLink="/login" (click)="isNewUser = false"> Sign In</a>
+          </span>
+          <span *ngIf="!isNewUser" class="btn btn-outline-success  me-3">
+            <a class="text-white sign" routerLink="/registration" (click)="isNewUser = true"> Sign Up</a>
+          </span>
+          <button class="btn btn-outline-danger me-3" id="signOutBtn" (click)="loggedOut()">Log Out</button>
+        </li>
+        
+      </ul>
+    </div>
+  </nav>

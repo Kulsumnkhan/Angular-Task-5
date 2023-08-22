@@ -1,0 +1,106 @@
+<!-- <p>registration works!</p> -->
+
+<div class="conatiner">
+    <div class="row">
+        <div class="col-8 offset-2 border border-dark p-3 mt-5">
+            <h3 class="text-primary text-center">Register</h3>
+            <form [formGroup]="staffDetails" (ngSubmit)="onSubmit()">
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input me-2" name="designation" id="hod" value="hod" formControlName="designation">
+                    <label for="hod" class="form-check-label me-4">HOD</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input me-2" name="designation" id="staff" value="staff" formControlName="designation">
+                    <label for="staff" class="form-check-label">Staff</label>
+                </div>
+    
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="title">Title*</label>
+                            <select name="title" id="title" formControlName="title" class="form-select">
+                                <option value="">Select Title</option>
+                                <option value="Mr." class="form-control">Mr.</option>
+                                <option value="Mrs." class="form-control">Mrs.</option>
+                                <option value="Miss" class="form-control">Miss</option>
+                                <option value="Ms." class="form-control">Ms.</option>
+                            </select>
+                            <span class="text-danger" *ngIf="!staffDetails.get('title').valid && staffDetails.get('title').touched">Kindly choose your title.</span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="fname">First Name*</label>
+                            <input type="text" name="firstName" id="fname" formControlName="fName" class="form-control"
+                                placeholder="Enter your first name.">
+                                <span class="text-danger" *ngIf="!staffDetails.get('fName').valid && staffDetails.get('fName').touched">First name is requried.</span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="lname">Last Name*</label>
+                            <input type="text" name="lastName" id="lname" formControlName="lName" class="form-control"
+                                placeholder="Enter your last name.">
+                                <span class="text-danger" *ngIf="!staffDetails.get('lName').valid && staffDetails.get('lName').touched">Last name is requried.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="email">Email*</label>
+                            <input type="text" name="email" id="email" formControlName="email" class="form-control"
+                                placeholder="Enter your valid email.">
+                                <span class="text-danger" *ngIf="!staffDetails.get('email').valid && staffDetails.get('email').touched">Email address is requried.</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="contact">Contact*</label>
+                            <input type="text" name="contact" id="contact" formControlName="contact" class="form-control"
+                                placeholder="Enter your contact number.">
+                                <span class="text-danger" *ngIf="!staffDetails.get('contact').valid && staffDetails.get('contact').touched">Contact number is requried.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="dept">Department*</label>
+                            <select name="dept" id="dept" formControlName="department" class="form-select">
+                                <option value="" class="form-control">Department</option>
+                                <option value="pre-primary" class="form-control">Pre-Primary</option>
+                                <option value="primary" class="form-control">Primary</option>
+                                <option value="middleSchool" class="form-control">Middle School</option>
+                                <option value="secondary" class="form-control">Secondary</option>
+                                <option value="higherSecondary" class="form-control">Higher Secondary</option>
+                            </select>
+                            <span class="text-danger" *ngIf="!staffDetails.get('department').valid && staffDetails.get('department').touched">Kindly choose your department.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="userName">Username*</label>
+                            <input type="text" name="userName" id="userName" formControlName="uName" class="form-control" placeholder="Enter your username.">
+                            <span class="text-danger" *ngIf="!staffDetails.get('uName').valid && staffDetails.get('uName').touched">Username is required.</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="password">Password*</label>
+                            <input type="password" name="password" id="password" formControlName="password" class="form-control" placeholder="Enter your password.">
+                            <span class="text-danger" *ngIf="!staffDetails.get('password').valid && staffDetails.get('password').touched">Kindly enter a strong password.></span>
+                        </div>
+                    </div>
+                </div>
+               <div class="d-grid">
+                <button class="btn btn-primary mt-3 d-grid" type="submit" [disabled]="staffDetails.invalid">Register</button>
+               </div>
+                <p class="text-center mt-2">Already have an account? <a routerLink="/login" class="text-primary">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>

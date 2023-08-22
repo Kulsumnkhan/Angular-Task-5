@@ -1,0 +1,45 @@
+<!-- <p>hod-dashboard works!</p> -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 offset-md-3">
+            <div class="hodInfo text-center mt-3">
+                <h2>{{currentUsers?.title}} {{currentUsers?.fName}} {{currentUsers?.lName}}</h2>
+                <span class="text-capitalize">{{currentUsers?.department}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sub-section" *ngIf="!leaves?.length ;else elsePart">
+    <h2>No leave request available.</h2>
+</div>
+
+<ng-template #elsePart>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngFor="let list of leaves">
+                <ng-container>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-light bg-info ps-2">{{list.title}} {{list.fName}} {{list.lName}}</p>
+                            <p>Leaves : <span class="text-secondary">{{list.startdt | date : "dd/MM/yyyy"}} to {{list.enddt | date : "dd/MM/yyyy"}}</span></p>
+                            <p>Number of Days : <span class="text-secondary">{{list.totalNoOfDays}}</span></p>
+                            <div class="reason">
+                                <p>Reason : <span class="text-secondary">{{list.reason}}</span></p>
+                            </div>
+                            <div *ngIf="list.status === 'Pending'; else elsePart">
+                                <span class="btn btn-outline-success me-3" (click)="approveRequest('Approved', list.id, $event)">Approve</span>
+                                <span class="btn btn-outline-danger" (click)="approveRequest('Rejected', list.id, $event)">Reject</span>
+                            </div>
+                            <ng-template #elsePart>
+                                <h3 [ngClass]="list.status === 'Approved'?'text-success':'d-none'"><i class="fa fa-check me-2" aria-hidden="true"></i>{{list.status}}</h3>
+                                <h3 [ngClass]="list.status === 'Rejected'?'text-danger':'d-none'"><i class="fa fa-times me-2" aria-hidden="true"></i>{{list.status}}</h3>
+                            </ng-template>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-template>
